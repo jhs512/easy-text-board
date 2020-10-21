@@ -13,12 +13,51 @@ public class App {
 
 	Article getArticle(int id) {
 		int index = getIndexById(id);
-		
-		if ( index == -1 ) {
+
+		if (index == -1) {
 			return null;
 		}
-		
+
 		return articles[index];
+	}
+
+	private int add(String title, String body) {
+		Article article = new Article();
+
+		article.id = lastArticleId + 1;
+		article.title = title;
+		article.body = body;
+
+		articles[articlesSize] = article;
+
+		articlesSize++;
+		lastArticleId = article.id;
+
+		return article.id;
+	}
+
+	private void remove(int id) {
+		int index = getIndexById(id);
+
+		if (index == -1) {
+			return;
+		}
+
+		for (int i = index + 1; i < articlesSize(); i++) {
+			articles[i - 1] = articles[i];
+		}
+
+		articlesSize--;
+	}
+
+	private int getIndexById(int id) {
+		for (int i = 0; i < articlesSize(); i++) {
+			if (articles[i].id == id) {
+				return i;
+			}
+		}
+
+		return -1;
 	}
 
 	public void run() {
@@ -42,28 +81,17 @@ public class App {
 					continue;
 				}
 
-				int id = lastArticleId + 1;
 				String title;
 				String body;
-
-				lastArticleId = id;
 
 				System.out.printf("제목 : ");
 				title = sc.nextLine();
 				System.out.printf("내용 : ");
 				body = sc.nextLine();
 
-				Article article = new Article();
-
-				article.id = id;
-				article.title = title;
-				article.body = body;
+				int id = add(title, body);
 
 				System.out.printf("%d번 게시물이 생성되었습니다.\n", id);
-
-				articles[articlesSize] = article;
-
-				articlesSize++;
 			} else if (command.equals("article list")) {
 				System.out.println("== 게시물 리스트 ==");
 
@@ -111,29 +139,5 @@ public class App {
 		}
 
 		sc.close();
-	}
-
-	private void remove(int id) {
-		int index = getIndexById(id);
-
-		if (index == -1) {
-			return;
-		}
-
-		for (int i = index + 1; i < articlesSize(); i++) {
-			articles[i - 1] = articles[i];
-		}
-
-		articlesSize--;
-	}
-
-	private int getIndexById(int id) {
-		for (int i = 0; i < articlesSize(); i++) {
-			if (articles[i].id == id) {
-				return i;
-			}
-		}
-
-		return -1;
 	}
 }
