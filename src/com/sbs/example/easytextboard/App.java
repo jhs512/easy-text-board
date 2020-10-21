@@ -5,6 +5,11 @@ import java.util.Scanner;
 public class App {
 	Article[] articles = new Article[3];
 	int lastArticleId = 0;
+	int articlesSize = 0;
+
+	int articlesSize() {
+		return articlesSize;
+	}
 
 	Article getArticle(int id) {
 		if (id < 1) {
@@ -38,7 +43,7 @@ public class App {
 			} else if (command.equals("article add")) {
 				System.out.println("== 게시물 등록 ==");
 
-				if (lastArticleId >= maxArticlesCount) {
+				if (articlesSize() >= maxArticlesCount) {
 					System.out.println("더 이상 생성할 수 없습니다.");
 					continue;
 				}
@@ -61,10 +66,12 @@ public class App {
 				article.body = body;
 
 				System.out.printf("%d번 게시물이 생성되었습니다.\n", id);
+
+				articlesSize++;
 			} else if (command.equals("article list")) {
 				System.out.println("== 게시물 리스트 ==");
 
-				if (lastArticleId == 0) {
+				if (articlesSize() == 0) {
 					System.out.println("게시물이 존재하지 않습니다.");
 					continue;
 				}
