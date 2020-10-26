@@ -143,6 +143,10 @@ public class App {
 
 				// 검색된 결과의 수를 먼저 구하기
 				for (Article article : articles) {
+					if (article == null) {
+						break;
+					}
+
 					if (article.title.contains(searchKeyword)) {
 						searchResultArticlesLen++;
 					}
@@ -152,6 +156,10 @@ public class App {
 
 				int searchResultArticlesIndex = 0;
 				for (Article article : articles) {
+					if (article == null) {
+						break;
+					}
+
 					if (article.title.contains(searchKeyword)) {
 						searchResultArticles[searchResultArticlesIndex] = article;
 						searchResultArticlesIndex++;
@@ -220,7 +228,16 @@ public class App {
 					System.out.printf("%d / %s\n", article.id, article.title);
 				}
 			} else if (command.startsWith("article detail ")) {
-				int inputedId = Integer.parseInt(command.split(" ")[2]);
+				int inputedId = 0;
+				
+				try {
+					inputedId = Integer.parseInt(command.split(" ")[2]);
+				}
+				catch ( NumberFormatException e ) {
+					System.out.println("게시물 번호를 양의 정수로 입력해주세요.");
+					continue;
+				}
+				
 				System.out.println("== 게시물 상세 ==");
 
 				Article article = getArticle(inputedId);
