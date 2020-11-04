@@ -5,13 +5,17 @@ import java.util.Scanner;
 
 import com.sbs.example.easytextboard.container.Container;
 import com.sbs.example.easytextboard.dto.Article;
+import com.sbs.example.easytextboard.dto.Member;
 import com.sbs.example.easytextboard.service.ArticleService;
+import com.sbs.example.easytextboard.service.MemberService;
 
 public class ArticleController {
 	private ArticleService articleService;
+	private MemberService memberService;
 
 	public ArticleController() {
 		articleService = new ArticleService();
+		memberService = new MemberService();
 	}
 
 	public void doCommand(String cmd) {
@@ -28,7 +32,8 @@ public class ArticleController {
 		System.out.println("번호 / 작성자 / 제목");
 
 		for (Article article : articles) {
-			System.out.printf("%d / %d / %s\n", article.id, article.memberId, article.title);
+			Member member = memberService.getMemberById(article.memberId);
+			System.out.printf("%d / %s / %s\n", article.id, member.name, article.title);
 		}
 	}
 
