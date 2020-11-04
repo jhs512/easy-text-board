@@ -4,14 +4,20 @@ import java.util.Scanner;
 
 import com.sbs.example.easytextboard.container.Container;
 import com.sbs.example.easytextboard.controller.ArticleController;
+import com.sbs.example.easytextboard.controller.Controller;
 import com.sbs.example.easytextboard.controller.MemberController;
 
 public class App {
+	private MemberController memberController;
+	private ArticleController articleController;
+
+	public App() {
+		memberController = new MemberController();
+		articleController = new ArticleController();
+	}
+
 	public void run() {
 		Scanner sc = Container.scanner;
-
-		MemberController memberController = new MemberController();
-		ArticleController articleController = new ArticleController();
 
 		while (true) {
 			System.out.printf("명령어) ");
@@ -19,13 +25,22 @@ public class App {
 
 			if (cmd.equals("system exit")) {
 				break;
-			} else if (cmd.startsWith("member ")) {
-				memberController.doCommand(cmd);
-			} else if (cmd.startsWith("article ")) {
-				articleController.doCommand(cmd);
 			}
+
+			Controller controller = getControllerByCmd(cmd);
+			controller.doCommand(cmd);
 		}
 
 		sc.close();
+	}
+
+	private Controller getControllerByCmd(String cmd) {
+		if (cmd.startsWith("member ")) {
+			return memberController;
+		} else if (cmd.startsWith("article ")) {
+			return articleController;
+		}
+
+		return null;
 	}
 }

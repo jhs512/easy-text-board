@@ -7,7 +7,7 @@ import com.sbs.example.easytextboard.dto.Member;
 import com.sbs.example.easytextboard.service.MemberService;
 import com.sbs.example.easytextboard.session.Session;
 
-public class MemberController {
+public class MemberController extends Controller {
 
 	private MemberService memberService;
 
