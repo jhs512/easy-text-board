@@ -21,4 +21,8 @@ public class ArticleService {
 		return articleDao.getForPrintArticles();
 	}
 
+	public int makeBoard(String name) {
+		return articleDao.makeBoard(name);
+	}
+
 }

@@ -23,7 +23,22 @@ public class ArticleController extends Controller {
 			add(cmd);
 		} else if (cmd.equals("article list")) {
 			list(cmd);
+		} else if (cmd.equals("article makeBoard")) {
+			makeBoard(cmd);
 		}
+	}
+
+	private void makeBoard(String cmd) {
+		Scanner sc = Container.scanner;
+
+		String name;
+
+		System.out.printf("게시판 이름 : ");
+		name = sc.nextLine();
+
+		int id = articleService.makeBoard(name);
+
+		System.out.printf("공지사항(%d번) 게시판이 생성되었습니다.", id);
 	}
 
 	private void list(String cmd) {
