@@ -13,8 +13,8 @@ public class ArticleService {
 		articleDao = Container.articleDao;
 	}
 
-	public int write(int memberId, String title, String body) {
-		return articleDao.write(memberId, title, body);
+	public int write(int boardId, int memberId, String title, String body) {
+		return articleDao.write(boardId, memberId, title, body);
 	}
 
 	public List<Article> getForPrintArticles() {

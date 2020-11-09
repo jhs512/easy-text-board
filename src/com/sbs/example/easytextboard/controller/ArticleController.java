@@ -36,9 +36,9 @@ public class ArticleController extends Controller {
 		System.out.printf("게시판 이름 : ");
 		name = sc.nextLine();
 
-		int id = articleService.makeBoard(name);
+		int boardId = articleService.makeBoard(name);
 
-		System.out.printf("공지사항(%d번) 게시판이 생성되었습니다.", id);
+		System.out.printf("공지사항(%d번) 게시판이 생성되었습니다.", boardId);
 	}
 
 	private void list(String cmd) {
@@ -69,7 +69,10 @@ public class ArticleController extends Controller {
 		System.out.printf("내용 : ");
 		body = sc.nextLine();
 
-		int id = articleService.write(Container.session.loginedMemberId, title, body);
+		int boardId = Container.session.selectedBoardId;
+		int memberId = Container.session.loginedMemberId;
+
+		int id = articleService.write(boardId, memberId, title, body);
 		System.out.printf("%d번 글이 생성되었습니다.\n", id);
 	}
 }
