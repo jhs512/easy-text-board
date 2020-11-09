@@ -2,6 +2,8 @@ package com.sbs.example.easytextboard.container;
 
 import java.util.Scanner;
 
+import com.sbs.example.easytextboard.controller.ArticleController;
+import com.sbs.example.easytextboard.controller.MemberController;
 import com.sbs.example.easytextboard.dao.ArticleDao;
 import com.sbs.example.easytextboard.dao.MemberDao;
 import com.sbs.example.easytextboard.service.ArticleService;
@@ -15,6 +17,8 @@ public class Container {
 	public static MemberService memberService;
 	public static ArticleDao articleDao;
 	public static MemberDao memberDao;
+	public static MemberController memberController;
+	public static ArticleController articleController;
 
 	static {
 		scanner = new Scanner(System.in);
@@ -25,5 +29,8 @@ public class Container {
 
 		articleService = new ArticleService();
 		memberService = new MemberService();
+
+		memberController = new MemberController();
+		articleController = new ArticleController();
 	}
 }
